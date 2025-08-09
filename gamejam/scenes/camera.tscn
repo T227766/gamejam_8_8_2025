@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0gltwfb5n8br"]
+
+[ext_resource type="Script" uid="uid://c7lxxeg3dp3lm" path="res://scripts/camera.gd" id="1_u5kg4"]
+[ext_resource type="Shader" uid="uid://b1gkmixoxdqix" path="res://assets/shaders/forground_shader.gdshader" id="2_diie0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqjab"]
+shader = ExtResource("2_diie0")
+shader_parameter/MULTIPLIER = 0.56
+shader_parameter/SCALE = 0.5
+shader_parameter/SOFTNESS = 0.45
+shader_parameter/BASE_OPACITY = 0.6
+
+[node name="Camera" type="Node3D"]
+script = ExtResource("1_u5kg4")
+
+[node name="MainCamera" type="Camera3D" parent="."]
+
+[node name="BackgroundVC" type="SubViewportContainer" parent="MainCamera"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="BackgroundVP" type="SubViewport" parent="MainCamera/BackgroundVC"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="BackgroundCam" type="Camera3D" parent="MainCamera/BackgroundVC/BackgroundVP"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.743448, 1, 0)
+
+[node name="ForegroundVC" type="SubViewportContainer" parent="MainCamera"]
+material = SubResource("ShaderMaterial_qqjab")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="ForegroundVP" type="SubViewport" parent="MainCamera/ForegroundVC"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="ForegroundCam" type="Camera3D" parent="MainCamera/ForegroundVC/ForegroundVP"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.743448, 1, 0)
