@@ -1,11 +1,27 @@
-extends Node3D
+extends Node
 
+var dice: Array
+var curBid: Dictionary
+var myTurn: bool
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func update_dice(newDice: Array):
+	dice.assign(newDice)
+	
+func update_curBid(newBid: Dictionary):
+	curBid.assign(newBid)
 
+func check_dice():
+	print(dice)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func bid(bidVal ,bidNum):
+	if((bidVal > curBid["val"] && bidNum >= curBid["num"])||(bidVal >= curBid["val"] && bidNum > curBid["num"])):
+		pass
+	
+func spot_on():
+	pass
+	
+func call_lie():
+	pass
+	
+func this_player_turn():
 	pass

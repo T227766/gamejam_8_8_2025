@@ -1,0 +1,139 @@
+[gd_scene load_steps=2 format=3 uid="uid://86knhjbksjj3"]
+
+[ext_resource type="Texture2D" uid="uid://6mnombk632w1" path="res://assets/images/test_dice.png" id="1_nt7q6"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Controls_Box" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Display" type="VBoxContainer" parent="Margin/Controls_Box"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Control_Lable" type="Label" parent="Margin/Controls_Box/Display"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "your bid"
+
+[node name="Selection_Display" type="HBoxContainer" parent="Margin/Controls_Box/Display"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Selected_Number" type="Label" parent="Margin/Controls_Box/Display/Selection_Display"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "5"
+
+[node name="Selected_Value_Texture" type="TextureRect" parent="Margin/Controls_Box/Display/Selection_Display"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_nt7q6")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Control_Buttons" type="HBoxContainer" parent="Margin/Controls_Box"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Others_Turn" type="HBoxContainer" parent="Margin/Controls_Box/Control_Buttons"]
+layout_mode = 2
+
+[node name="Spot_On" type="Button" parent="Margin/Controls_Box/Control_Buttons/Others_Turn"]
+layout_mode = 2
+text = "Spot On"
+
+[node name="Call" type="Button" parent="Margin/Controls_Box/Control_Buttons/Others_Turn"]
+layout_mode = 2
+text = "Call out Lie"
+
+[node name="Your_Turn" type="HBoxContainer" parent="Margin/Controls_Box/Control_Buttons"]
+layout_mode = 2
+
+[node name="Number_Buttons" type="VBoxContainer" parent="Margin/Controls_Box/Control_Buttons/Your_Turn"]
+layout_mode = 2
+
+[node name="Increase_Number" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn/Number_Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "number +1"
+
+[node name="Decrease_Number" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn/Number_Buttons"]
+layout_mode = 2
+text = "number -1"
+
+[node name="Value_Buttons" type="VBoxContainer" parent="Margin/Controls_Box/Control_Buttons/Your_Turn"]
+layout_mode = 2
+
+[node name="Increase_Value" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn/Value_Buttons"]
+layout_mode = 2
+text = "value +1"
+
+[node name="Decrease_Value" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn/Value_Buttons"]
+layout_mode = 2
+text = "value -1"
+
+[node name="Lock_Bid" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn"]
+layout_mode = 2
+text = "Lock in"
+
+[node name="Info_Panel" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Info_Lable" type="Label" parent="Margin/Info_Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Current Bid"
+
+[node name="Latest_Bid" type="HBoxContainer" parent="Margin/Info_Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Current_Number" type="Label" parent="Margin/Info_Panel/Latest_Bid"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "10"
+
+[node name="Current_Value_Texture" type="TextureRect" parent="Margin/Info_Panel/Latest_Bid"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_nt7q6")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="How To Play" type="Label" parent="Margin/Info_Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "How to play info"
+
+[node name="Notifications" type="Label" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Whos turn is it"
