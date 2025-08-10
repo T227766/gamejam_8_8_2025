@@ -2,6 +2,7 @@ extends Node
 
 var dice: Array
 var curBid: Dictionary
+var myTurn: bool
 
 func update_dice(newDice: Array):
 	dice.assign(newDice)
@@ -20,4 +21,7 @@ func spot_on():
 	pass
 	
 func call_lie():
+	pass
+	
+func this_player_turn():
 	pass
