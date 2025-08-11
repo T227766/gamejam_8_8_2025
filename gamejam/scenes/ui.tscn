@@ -23,6 +23,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 
 [node name="Display" type="VBoxContainer" parent="Margin/Controls_Box"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 4
 
@@ -68,6 +69,7 @@ layout_mode = 2
 text = "Call out Lie"
 
 [node name="Your_Turn" type="HBoxContainer" parent="Margin/Controls_Box/Control_Buttons"]
+visible = false
 layout_mode = 2
 
 [node name="Number_Buttons" type="VBoxContainer" parent="Margin/Controls_Box/Control_Buttons/Your_Turn"]
