@@ -2,14 +2,13 @@ extends Node
 class_name Player
 
 var dice: Array
-var curBid: Dictionary = {"val": 0, "num": 0}
+var curBid: Dictionary = {"val": 1, "num": 0}
 var myTurn: bool
 var playerId: int
 var bidNumber: int = 0
 var bidValue: int = 1
 
 func _ready() -> void:
-	update_selected_display()
 	print("Im player ", playerId ," and my dice are ", dice)
 
 func give_id(newPlayerId: int):
@@ -28,8 +27,11 @@ func lost():
 	
 func update_curBid(newBid: Dictionary):
 	curBid.assign(newBid)
+	bidNumber = curBid["num"]
+	bidValue = curBid["val"]
 	$UI/Margin/Info_Panel/Latest_Bid/Current_Number.text = str(curBid["num"])
 	$UI/Margin/Info_Panel/Latest_Bid/Current_Value_Texture.tooltip_text = str(curBid["val"])
+	update_selected_display()
 
 
 func not_your_turn():

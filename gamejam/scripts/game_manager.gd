@@ -89,10 +89,8 @@ func check_for_winner():
 	
 func if_lost(playerId): #check ifa  player has lost all their dice if that is the case remove the player from the que
 	if(cups[playerId].size() == 0):
-		for n in range(que.size()):
-			if(que[n].playerId == playerId):
-				que[n].lost()
-				que.pop_at(n)
+		que[playerId].lost()
+		que.pop_at(playerId)
 		check_for_winner()
 		return true
 	else:
@@ -100,12 +98,13 @@ func if_lost(playerId): #check ifa  player has lost all their dice if that is th
 	
 func call_bs(playerId: int):
 	reveal_all_dice()
-	var count = 0
+	var count = count(curBid["val"])
+	print("there are ", count, "dice with value ",curBid["val"])
 	for cup in cups:
 		for dice in cup:
 			if(dice == curBid["val"]):
 				count += 1
-	if(count > curBid["num"]):
+	if(count >= curBid["num"]):
 		#wrong call
 		cups[playerId].pop_back()
 		if(!if_lost(playerId)):
@@ -118,11 +117,8 @@ func call_bs(playerId: int):
 	
 func spot_on(playerId: int):
 	reveal_all_dice()
-	var count = 0 
-	for cup in cups:
-		for dice in cup:
-			if(dice == curBid["val"]):
-				count += 1
+	var count = count(curBid["val"])
+	print("there are ", count, "dice with value ",curBid["val"])
 	if(count != curBid["num"]):
 		#wrong call lose a dice
 		cups[playerId].pop_back()
@@ -152,5 +148,12 @@ func get_total_dice():
 			totalDice += 1
 	return totalDice
 	
-
+func count(val: int):
+	var c = 0
+	for cup in cups:
+		for dice in cup:
+			if(dice == val):
+				c += 1
+	return c
+	
 	

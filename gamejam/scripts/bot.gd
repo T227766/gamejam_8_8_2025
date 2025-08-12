@@ -21,6 +21,8 @@ func lost():
 	
 func update_curBid(newBid: Dictionary):
 	curBid.assign(newBid)
+	bidNumber = curBid["num"]
+	bidValue = curBid["val"]
 
 func not_your_turn():
 	#myTurn = false
@@ -79,6 +81,7 @@ func raise_bid():
 	if(grntVals.size() > 0):
 		bidValue = grntVals[randi_range(0, grntVals.size()-1)]
 		bidNumber = randi_range(curBid["num"]+1, grnt(bidValue))
+		print("bot player", playerId, "is doing a granti raise to", bidNumber,bidValue, "\n this number was chosen randomly between #", curBid["num"]+1 , " ", grnt(bidValue))
 		get_parent().raise(playerId, bidNumber, bidValue)
 	else:
 		# risky raise
@@ -94,6 +97,7 @@ func raise_bid():
 				minP = p_value(eDice, g)
 				bidValue = curBid["val"] + n
 		bidNumber = curBid["num"] + 1
+		print("bot player", playerId, "is doing a riski raise to", bidNumber,bidValue)
 		get_parent().raise(playerId, bidNumber, bidValue)
 
 				
