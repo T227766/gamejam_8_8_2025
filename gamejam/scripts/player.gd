@@ -137,3 +137,22 @@ func play_sfx(path: String):
 	$AudioStreamPlayer.play()
 	
 	
+
+
+func _on_how_pressed() -> void:
+	if($"UI/Margin/Info_Panel/How_To_Play".visible == false):
+		$"UI/Margin/Info_Panel/How_To_Play".visible = true
+		$UI/Margin/Controls_Box.visible = false
+	else:
+		$"UI/Margin/Info_Panel/How_To_Play".visible = false
+		$UI/Margin/Controls_Box.visible = true
+	
+
+
+func _on_cred_pressed() -> void:
+		if($UI/Margin/Info_Panel/Creds.visible == false):
+			$UI/Margin/Info_Panel/Creds.visible = true
+			$UI/Margin/Controls_Box.visible = false
+		else:
+			$UI/Margin/Info_Panel/Creds.visible = false
+			$UI/Margin/Controls_Box.visible = true

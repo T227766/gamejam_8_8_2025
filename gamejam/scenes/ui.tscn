@@ -195,16 +195,40 @@ position = Vector2(33, 25)
 scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_8dubc")
 
-[node name="How To Play" type="Label" parent="Margin/Info_Panel"]
+[node name="How_To_Play" type="Label" parent="Margin/Info_Panel"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
-text = "How to play:"
+text = "How to play:
+Each player rolls 5 dice secretly.
+
+Players take turns guessing how many dice of a certain number are on the table (e.g., “three 4s”).
+
+Next player can raise the bid or call “liar” , or \"spot on\"
+
+If “liar” is called, all dice are revealed. If the bid is wrong, the bidder loses a dice; if right, the caller loses a dice.
+
+If Spot On is correct, caller wins and every one else loses a dice
+
+If Spot On is wrong, caller loses a dice
+
+Last player with dice wins!"
 
 [node name="Restart" type="Button" parent="Margin/Info_Panel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Restart the game"
+
+[node name="How" type="Button" parent="Margin/Info_Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "How To Play?"
+
+[node name="Cred" type="Button" parent="Margin/Info_Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Credits"
 
 [node name="Notifications" type="Label" parent="Margin"]
 layout_mode = 2
