@@ -87,7 +87,8 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-text = "your bid"
+theme_override_font_sizes/font_size = 25
+text = "your bid:"
 
 [node name="Selection_Display" type="HBoxContainer" parent="Margin/Controls_Box/Display"]
 layout_mode = 2
@@ -97,6 +98,7 @@ size_flags_vertical = 4
 [node name="Selected_Number" type="Label" parent="Margin/Controls_Box/Display/Selection_Display"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 31
 text = "5"
 
 [node name="Container" type="MarginContainer" parent="Margin/Controls_Box/Display/Selection_Display"]
@@ -118,10 +120,12 @@ layout_mode = 2
 
 [node name="Spot_On" type="Button" parent="Margin/Controls_Box/Control_Buttons/Others_Turn"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Spot On"
 
 [node name="Call" type="Button" parent="Margin/Controls_Box/Control_Buttons/Others_Turn"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Call out Lie"
 
 [node name="Your_Turn" type="HBoxContainer" parent="Margin/Controls_Box/Control_Buttons"]
@@ -134,10 +138,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_font_sizes/font_size = 25
 text = "number +1"
 
 [node name="Decrease_Number" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn/Number_Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "number -1"
 
 [node name="Value_Buttons" type="VBoxContainer" parent="Margin/Controls_Box/Control_Buttons/Your_Turn"]
@@ -145,14 +151,17 @@ layout_mode = 2
 
 [node name="Increase_Value" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn/Value_Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "value +1"
 
 [node name="Decrease_Value" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn/Value_Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "value -1"
 
 [node name="Lock_Bid" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Lock in"
 
 [node name="Info_Panel" type="VBoxContainer" parent="Margin"]
@@ -163,7 +172,8 @@ size_flags_vertical = 0
 [node name="Info_Lable" type="Label" parent="Margin/Info_Panel"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Current Bid"
+theme_override_font_sizes/font_size = 25
+text = "Current Bid:"
 
 [node name="Latest_Bid" type="HBoxContainer" parent="Margin/Info_Panel"]
 layout_mode = 2
@@ -173,6 +183,7 @@ size_flags_vertical = 4
 [node name="Current_Number" type="Label" parent="Margin/Info_Panel/Latest_Bid"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
 text = "10"
 
 [node name="Container" type="Container" parent="Margin/Info_Panel/Latest_Bid"]
@@ -187,14 +198,17 @@ sprite_frames = SubResource("SpriteFrames_8dubc")
 [node name="How To Play" type="Label" parent="Margin/Info_Panel"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
 text = "How to play info  "
 
 [node name="Restart" type="Button" parent="Margin/Info_Panel"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Restart the game"
 
 [node name="Notifications" type="Label" parent="Margin"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 60
 text = "Whos turn is it"

@@ -64,7 +64,7 @@ func initialize():
 	for p in players:
 		p.update_dice(cups[p.playerId])
 		p.update_curBid(curBid)
-	b_anim("shake_cup")
+	b_anim("shake_cup", "res://assets/sfx/diceshake.mp3")
 	que[0].your_turn()
 
 func reset():
@@ -72,19 +72,21 @@ func reset():
 	que.clear()
 	curBid = {"val": 1, "num": 0}
 	announce(str("Restarting Game"), true)
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(0.5).timeout
 	
 	initialize()
 
-func b_anim(anim):
+func b_anim(anim: String, stream: String):
 	for p in players:
 		p.animate(anim)
+		#if(stream != "" or stream != null):
+			#p.play_sfx(stream)
 
 #randomize players dice
 func shake_dice():
 	for p in players:
 		p.hide_dice()
-	b_anim("shake_cup")
+	b_anim("shake_cup", "res://assets/sfx/diceshake.mp3")
 	for cup in cups:
 		for n in range(cup.size()):
 			cup[n] = randi_range(1,6)

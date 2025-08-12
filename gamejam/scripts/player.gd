@@ -9,6 +9,7 @@ var bidNumber: int = 0
 var bidValue: int = 1
 var isPlayer = true
 
+
 func _ready() -> void:
 	self.rotation = Vector3(0,(get_parent().playerCount*deg_to_rad(90)),0)
 
@@ -122,9 +123,17 @@ func animate(anim: String):
 		await $AnimationPlayer.animation_finished
 		hide_dice()
 		$AnimationPlayer.play(anim)
+		play_sfx("res://assets/sfx/diceshake.mp3")
 	else:
 		$AnimationPlayer.play(anim)
 	
 
 func hide_dice():
 	dice_roll.visible = false
+	
+func play_sfx(path: String):
+	var sfx = load(path)
+	$AudioStreamPlayer.stream = sfx
+	$AudioStreamPlayer.play()
+	
+	

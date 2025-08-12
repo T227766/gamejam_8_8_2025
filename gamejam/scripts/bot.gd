@@ -121,6 +121,7 @@ func animate(anim: String):
 		await $AnimationPlayer.animation_finished
 		hide_dice()
 		$AnimationPlayer.play(anim)
+		play_sfx("res://assets/sfx/diceshake.mp3")
 	else:
 		$AnimationPlayer.play(anim)
 
@@ -148,3 +149,8 @@ func randomly_check_dice():
 
 func _on_timer_timeout() -> void:
 	randomly_check_dice()
+
+func play_sfx(path: String):
+	var sfx = load(path)
+	$AudioStreamPlayer.stream = sfx
+	$AudioStreamPlayer.play()

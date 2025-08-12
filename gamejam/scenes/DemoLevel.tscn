@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cmly1est8b5iw"]
+[gd_scene load_steps=23 format=4 uid="uid://cmly1est8b5iw"]
 
 [ext_resource type="Script" uid="uid://sg8n8sugmpah" path="res://scripts/game_manager.gd" id="1_h3j3n"]
 [ext_resource type="Texture2D" uid="uid://sx21yasrregl" path="res://assets/models/poker_table/sm_pokertable_0.jpg" id="1_n4blu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bi20cfxqxr5hi" path="res://assets/models/poker_table/sm_pokertable_2.jpg" id="3_ww287"]
 [ext_resource type="Texture2D" uid="uid://c3xahwfhrnsg1" path="res://assets/models/lamp/lamp_1.png" id="4_mic4v"]
 [ext_resource type="Texture2D" uid="uid://bha5h5wg88g23" path="res://assets/models/lamp/lamp_3.png" id="5_ww287"]
+[ext_resource type="AudioStream" uid="uid://crtgcbgk33lyo" path="res://assets/music/jazz-romance-cozy-fireplace-relaxing-podcast-music-212470.mp3" id="9_h3j3n"]
 
 [sub_resource type="Environment" id="Environment_4jm6x"]
 background_mode = 2
@@ -188,7 +189,7 @@ albedo_color = Color(0, 0, 0, 1)
 script = ExtResource("1_h3j3n")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(-4.09261e-08, -0.351253, 0.93628, -1.53538e-08, 0.93628, 0.351253, -1, 0, -4.37114e-08, 0.743448, 1.10663, 0)
+transform = Transform3D(-3.40238e-08, -0.6278, 0.778375, -2.7442e-08, 0.778375, 0.6278, -1, -3.73035e-14, -4.37114e-08, 0.726234, 1.34076, 0)
 cull_mask = 1048573
 
 [node name="Players" type="Node3D" parent="."]
@@ -232,7 +233,7 @@ mesh = SubResource("ArrayMesh_c4m4s")
 skeleton = NodePath("")
 
 [node name="SM_Light" type="Node3D" parent="Visuals"]
-transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0.0224295, 2.50171, -0.00238681)
+transform = Transform3D(0.499981, -1.91869e-10, 0.00438945, -0.00438945, -2.18549e-08, 0.499981, 0, -0.5, -2.18557e-08, 0.0224295, 4.22626, -0.00238681)
 
 [node name="SM_Light_M_Lamp_0" type="MeshInstance3D" parent="Visuals/SM_Light"]
 mesh = SubResource("ArrayMesh_cms3g")
@@ -280,3 +281,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ww287")
 transform = Transform3D(-1.31134e-07, -3, -1.31134e-07, 0, -1.31134e-07, 3, -3, 1.31134e-07, 5.73206e-15, 3, 0, 0)
 mesh = SubResource("PlaneMesh_mic4v")
 surface_material_override/0 = SubResource("StandardMaterial3D_ww287")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_h3j3n")
+autoplay = true
