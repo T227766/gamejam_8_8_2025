@@ -14,6 +14,10 @@ func _ready() -> void:
 func give_id(newPlayerId: int):
 	playerId = newPlayerId
 
+@export var player_id : int
+@onready var dice_roll: Node3D = $Visuals/Dice
+
+
 func update_dice(newDice: Array):
 	dice.assign(newDice)
 	#print(dice)
@@ -45,6 +49,7 @@ func your_turn():
 	myTurn = true
 	$UI/Margin/Controls_Box/Display.visible = myTurn
 	$UI/Margin/Controls_Box/Control_Buttons/Your_Turn.visible = myTurn
+
 	
 
 func _on_increase_number_pressed() -> void:
@@ -92,9 +97,17 @@ func _on_call_pressed() -> void:
 func _on_spot_on_pressed() -> void:
 	get_parent().spot_on(playerId)
 	
+
 func notify(str: String):
 	$UI/Margin/Notifications.text = str
 
 
 func _on_restart_pressed() -> void:
 	pass # Replace with function body.
+
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	dice_roll.visible = true
+	dice_roll.set_dice([1,4,5,2,6])
+

@@ -1,5 +1,6 @@
 extends Node
 
+
 const TEST_PLAYER = preload("res://scenes/test_player.tscn")
 const BOT_PLAYER = preload("res://scenes/bot.tscn")
 
@@ -12,11 +13,15 @@ var players: Array
 var que: Array
 
 
+
 func _ready() -> void:
+	
 	add_player()
+
 	add_bot()
 	add_bot()
 	add_bot()
+
 	initialize()
 	print("Starting rolls are", cups)
 
