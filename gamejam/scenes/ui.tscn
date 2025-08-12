@@ -1,6 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://86knhjbksjj3"]
+[gd_scene load_steps=9 format=3 uid="uid://86knhjbksjj3"]
 
-[ext_resource type="Texture2D" uid="uid://6mnombk632w1" path="res://assets/images/test_dice.png" id="1_nt7q6"]
+[ext_resource type="Texture2D" uid="uid://bjldvwm6c3vvb" path="res://assets/images/dice-six-faces-one.png" id="1_p7vwb"]
+[ext_resource type="Texture2D" uid="uid://cydjq5fraa0s2" path="res://assets/images/dice-six-faces-two.png" id="2_ktti3"]
+[ext_resource type="Texture2D" uid="uid://cxsiik38ww5y" path="res://assets/images/dice-six-faces-three.png" id="3_cgfq5"]
+[ext_resource type="Texture2D" uid="uid://c00q83kfxiya8" path="res://assets/images/dice-six-faces-four.png" id="4_7dvkv"]
+[ext_resource type="Texture2D" uid="uid://bn5k7rod8i72c" path="res://assets/images/dice-six-faces-five.png" id="5_vdcm2"]
+[ext_resource type="Texture2D" uid="uid://cqno8a6ec1jyv" path="res://assets/images/dice-six-faces-six.png" id="6_6rmj2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vsj0x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p7vwb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ktti3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cgfq5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7dvkv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vdcm2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6rmj2")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8dubc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p7vwb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ktti3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cgfq5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7dvkv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vdcm2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6rmj2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="UI" type="CanvasLayer"]
 
@@ -30,7 +87,8 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-text = "your bid"
+theme_override_font_sizes/font_size = 25
+text = "your bid:"
 
 [node name="Selection_Display" type="HBoxContainer" parent="Margin/Controls_Box/Display"]
 layout_mode = 2
@@ -40,16 +98,17 @@ size_flags_vertical = 4
 [node name="Selected_Number" type="Label" parent="Margin/Controls_Box/Display/Selection_Display"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 31
 text = "5"
 
-[node name="Selected_Value_Texture" type="TextureRect" parent="Margin/Controls_Box/Display/Selection_Display"]
+[node name="Container" type="MarginContainer" parent="Margin/Controls_Box/Display/Selection_Display"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("1_nt7q6")
-expand_mode = 1
-stretch_mode = 4
+
+[node name="Selected_Value_Texture" type="AnimatedSprite2D" parent="Margin/Controls_Box/Display/Selection_Display/Container"]
+position = Vector2(36, 22)
+scale = Vector2(0.08, 0.08)
+sprite_frames = SubResource("SpriteFrames_vsj0x")
 
 [node name="Control_Buttons" type="HBoxContainer" parent="Margin/Controls_Box"]
 layout_mode = 2
@@ -61,10 +120,12 @@ layout_mode = 2
 
 [node name="Spot_On" type="Button" parent="Margin/Controls_Box/Control_Buttons/Others_Turn"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Spot On"
 
 [node name="Call" type="Button" parent="Margin/Controls_Box/Control_Buttons/Others_Turn"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Call out Lie"
 
 [node name="Your_Turn" type="HBoxContainer" parent="Margin/Controls_Box/Control_Buttons"]
@@ -77,10 +138,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_font_sizes/font_size = 25
 text = "number +1"
 
 [node name="Decrease_Number" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn/Number_Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "number -1"
 
 [node name="Value_Buttons" type="VBoxContainer" parent="Margin/Controls_Box/Control_Buttons/Your_Turn"]
@@ -88,14 +151,17 @@ layout_mode = 2
 
 [node name="Increase_Value" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn/Value_Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "value +1"
 
 [node name="Decrease_Value" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn/Value_Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "value -1"
 
 [node name="Lock_Bid" type="Button" parent="Margin/Controls_Box/Control_Buttons/Your_Turn"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Lock in"
 
 [node name="Info_Panel" type="VBoxContainer" parent="Margin"]
@@ -106,7 +172,8 @@ size_flags_vertical = 0
 [node name="Info_Lable" type="Label" parent="Margin/Info_Panel"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Current Bid"
+theme_override_font_sizes/font_size = 25
+text = "Current Bid:"
 
 [node name="Latest_Bid" type="HBoxContainer" parent="Margin/Info_Panel"]
 layout_mode = 2
@@ -116,24 +183,32 @@ size_flags_vertical = 4
 [node name="Current_Number" type="Label" parent="Margin/Info_Panel/Latest_Bid"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
 text = "10"
 
-[node name="Current_Value_Texture" type="TextureRect" parent="Margin/Info_Panel/Latest_Bid"]
+[node name="Container" type="Container" parent="Margin/Info_Panel/Latest_Bid"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("1_nt7q6")
-expand_mode = 1
-stretch_mode = 4
+
+[node name="Current_Value_Texture" type="AnimatedSprite2D" parent="Margin/Info_Panel/Latest_Bid/Container"]
+position = Vector2(33, 25)
+scale = Vector2(0.08, 0.08)
+sprite_frames = SubResource("SpriteFrames_8dubc")
 
 [node name="How To Play" type="Label" parent="Margin/Info_Panel"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "How to play info"
+theme_override_font_sizes/font_size = 20
+text = "How to play info  "
+
+[node name="Restart" type="Button" parent="Margin/Info_Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Restart the game"
 
 [node name="Notifications" type="Label" parent="Margin"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 60
 text = "Whos turn is it"
