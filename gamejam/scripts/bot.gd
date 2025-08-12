@@ -6,8 +6,10 @@ var myTurn: bool
 var playerId: int
 var bidNumber: int = 0
 var bidValue: int = 0
+var botBias
 
 func _ready() -> void:
+	botBias = randf_range(-0.150,150)
 	print("Im bot player ", playerId ," and my dice are ", dice)
 
 func give_id(newPlayerId: int):
@@ -57,7 +59,7 @@ func your_turn():
 
 func p_value(eDice, g) -> float:
 	var x = ((eDice/6)+g)/curBid["num"]
-	return  float(1/(x+1))
+	return  float((1/(x+1)) + botBias)
 	
 func grnt(val):
 	var count = 0
@@ -80,7 +82,12 @@ func raise_bid():
 			grntVals.append(curBid["val"] + n)
 	if(grntVals.size() > 0):
 		bidValue = grntVals[randi_range(0, grntVals.size()-1)]
-		bidNumber = randi_range(curBid["num"]+1, grnt(bidValue))
+		if(bidValue == curBid["val"]):
+			bidNumber = curBid["num"]+1
+		elif(curBid["num"]+1 <= grnt(bidValue)):
+			bidNumber = randi_range(curBid["num"]+1, grnt(bidValue))
+		else:
+			bidNumber = curBid["num"]+1
 		print("bot player", playerId, "is doing a granti raise to", bidNumber,bidValue, "\n this number was chosen randomly between #", curBid["num"]+1 , " ", grnt(bidValue))
 		get_parent().raise(playerId, bidNumber, bidValue)
 	else:

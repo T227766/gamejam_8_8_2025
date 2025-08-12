@@ -15,6 +15,8 @@ var que: Array
 func _ready() -> void:
 	add_player()
 	add_bot()
+	add_bot()
+	add_bot()
 	initialize()
 	print("Starting rolls are", cups)
 
@@ -50,6 +52,11 @@ func initialize():
 		p.update_curBid(curBid)
 	que[0].your_turn()
 
+func reset():
+	cups.clear()
+	que.clear()
+	initialize()
+
 #randomize players dice
 func shake_dice():
 	for cup in cups:
@@ -83,14 +90,19 @@ func reveal_all_dice():
 	
 func check_for_winner():
 	if(que.size() == 1): # we have a winner
+		print("player ", que[0].playerId, "has won!")
+		reset()
 		return true
 	else:
 		return false
 	
+	
 func if_lost(playerId): #check ifa  player has lost all their dice if that is the case remove the player from the que
 	if(cups[playerId].size() == 0):
-		que[playerId].lost()
-		que.pop_at(playerId)
+		for n in range(que.size()-1, -1, -1):
+			if (que[n].playerId == playerId):
+				que[n].lost()
+				que.pop_at(n)
 		check_for_winner()
 		return true
 	else:

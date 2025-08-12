@@ -56,7 +56,10 @@ func _on_decrease_number_pressed() -> void:
 	update_selected_display()
 
 func _on_increase_value_pressed() -> void:
-	bidValue += 1
+	if (bidValue < 6):
+		bidValue += 1
+	else:
+		print("cant go higher than 6")
 	update_selected_display()
 
 func _on_decrease_value_pressed() -> void:
