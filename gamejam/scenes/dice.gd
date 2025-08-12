@@ -27,6 +27,3 @@ func set_dice(roll : Array):
 		else:
 			set_face(roll[i], dice)
 	
-func _ready():
-	var roll = [1,3,4,4,6]
-	set_dice(roll)

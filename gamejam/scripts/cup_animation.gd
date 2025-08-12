@@ -8,8 +8,3 @@ func play_shake_cup():
 	timer.wait_time = get_animation("shake cup").duration
 	timer.one_shot = true
 	
-
-
-
-	
-func is_animation_finished()

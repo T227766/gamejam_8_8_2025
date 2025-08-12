@@ -6,6 +6,7 @@ var curBid: Dictionary
 var myTurn: bool
 
 @export var player_id : int
+@onready var dice_roll: Node3D = $Visuals/Dice
 
 
 func update_dice(newDice: Array):
@@ -31,3 +32,8 @@ func call_lie():
 	
 func this_player_turn():
 	pass
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	dice_roll.visible = true
+	dice_roll.set_dice([1,4,5,2,6])
