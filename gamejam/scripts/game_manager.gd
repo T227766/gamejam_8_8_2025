@@ -33,6 +33,9 @@ func add_player():
 		add_child(newPlayer)
 		playerCount += 1
 		announce(str("New Player Joined the game as player ", newPlayer.playerId), false)
+		await get_tree().create_timer(1.0).timeout
+
+		
 		
 func add_bot():
 	if(playerCount < 4):
@@ -42,6 +45,8 @@ func add_bot():
 		add_child(newBot)
 		playerCount += 1
 		announce(str("New Bot Joined the game as player ", newBot.playerId), true)
+		await get_tree().create_timer(1.0).timeout
+		
 		
 	
 func initialize():
@@ -67,6 +72,8 @@ func reset():
 	que.clear()
 	curBid = {"val": 1, "num": 0}
 	announce(str("Restarting Game"), true)
+	await get_tree().create_timer(5.0).timeout
+	
 	initialize()
 
 func b_anim(anim):
@@ -109,7 +116,9 @@ func reveal_all_dice():
 	
 func check_for_winner():
 	if(que.size() == 1): # we have a winner
-		announce(str("player ", que[0].playerId, "has won!\nRestart to play again!"), false)
+		announce(str("player ", que[0].playerId, " has won!\nRestart to play again!"), false)
+		await get_tree().create_timer(5.0).timeout
+		
 		return true
 	else:
 		return false
@@ -121,7 +130,9 @@ func if_lost(playerId): #check ifa  player has lost all their dice if that is th
 			if (que[n].playerId == playerId):
 				que[n].lost()
 				que.pop_at(n)
-				announce(str("PLayer ", playerId, "is removed from this game"), true)
+				announce(str("PLayer ", playerId, " is removed from this game"), true)
+				await get_tree().create_timer(5.0).timeout
+				
 		check_for_winner()
 		return true
 	else:
@@ -130,39 +141,56 @@ func if_lost(playerId): #check ifa  player has lost all their dice if that is th
 func call_bs(playerId: int):
 	reveal_all_dice()
 	var count = count(curBid["val"])
-	announce(str("Player ", playerId, "Calls Lie!"), true)
+	announce(str("Player ", playerId, " Calls Lie!"), true)
+	await get_tree().create_timer(5.0).timeout
+
 	for cup in cups:
 		for dice in cup:
 			if(dice == curBid["val"]):
 				count += 1
-	announce(str("there are ", count, "dice with value ",curBid["val"]), true)
+	announce(str("there are ", count, " dice with value ",curBid["val"]), true)
+	await get_tree().create_timer(5.0).timeout
+
 	if(count >= curBid["num"]):
 		#wrong call
-		announce(str("It was NOT a LIE! \nPLayer ", playerId, "looses a dice\n they have ",cups[playerId].size(), "Dice left"), true)
+		announce(str("It was NOT a LIE! \nPLayer ", playerId, " looses a dice\n they have ",cups[playerId].size(), " Dice left"), true)
+		await get_tree().create_timer(5.0).timeout
+		
 		cups[playerId].pop_back()
-		if(!if_lost(playerId)):
+		if(!(await if_lost(playerId))):
+			
 			whos_turn(playerId)
 	else:
 		#last guy lied
 		cups[que[-1].playerId].pop_back()
-		announce(str("It WAS a LIE! \nPLayer ", playerId, "looses a dice\n they have ",cups[playerId].size(), "Dice left"), true)
+		announce(str(" It WAS a LIE! \nPLayer ", playerId, " looses a dice\n they have ",cups[playerId].size(), " Dice left"), true)
+		await get_tree().create_timer(5.0).timeout
+		
 		if_lost(que[-1].playerId)
 	next_round()
 	
 func spot_on(playerId: int):
 	reveal_all_dice()
-	announce(str("Player ", playerId, "Calls Spot On!"), true)
+	announce(str("Player ", playerId, " Calls Spot On!"), true)
+	await get_tree().create_timer(5.0).timeout
+	
 	var count = count(curBid["val"])
-	announce(str("there are ", count, "dice with value ",curBid["val"]), true)
+	announce(str("there are ", count, " dice with value ",curBid["val"]), true)
+	await get_tree().create_timer(5.0).timeout
+
 	if(count != curBid["num"]):
 		#wrong call lose a dice
 		cups[playerId].pop_back()
-		announce(str("It was NOT spot ON! \nPLayer ", playerId, "looses a dice\n they have ",cups[playerId].size(), "Dice left"), true)
-		if(!if_lost(playerId)):
+		announce(str("It was NOT spot ON! \nPLayer ", playerId, " looses a dice\n they have ",cups[playerId].size(), " Dice left"), true)
+		await get_tree().create_timer(5.0).timeout
+
+		if(!(await if_lost(playerId))):
 			whos_turn(playerId)
 	else:
 		#spot on! every body lose a dice exept playerId
 		announce(str("It was SPOT ON! \nall other PLayer will lose 1 Dice\n ", get_total_dice(), " Total Dice remain on the table"), true)
+		await get_tree().create_timer(5.0).timeout
+		
 		for p in que:
 			if(p.playerId != playerId):
 				cups[p.playerId].pop_back()
@@ -175,7 +203,9 @@ func raise(playerId: int, bidNumber:int, bidValue:int):
 		curBid["num"] = bidNumber
 		for p in players:
 			p.update_curBid(curBid)
-		announce(str(playerId, "Raised the bid!"), true)
+		announce(str("Player ",playerId, " Raised the bid!"), true)
+		await get_tree().create_timer(5.0).timeout
+		
 	next_turn()
 
 	
@@ -195,9 +225,9 @@ func count(val: int):
 	return c
 	
 func announce(str: String, wait:bool):
-	if(wait):
-		await get_tree().create_timer(3.0).timeout
 	for p in players:
 		if(p.isPlayer == true):
 			p.notify(str, false)
+	if(wait):
+		await get_tree().create_timer(3.0).timeout
 	return
