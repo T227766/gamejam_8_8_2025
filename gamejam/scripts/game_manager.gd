@@ -1,19 +1,20 @@
 extends Node
 
 const TEST_PLAYER = preload("res://scenes/test_player.tscn")
+const BOT_PLAYER = preload("res://scenes/bot.tscn")
 
 
 var playerCount = 0
 var startingDiceCount = 5
 var cups: Array
-var curBid: Dictionary = {"val": 0, "num": 0}
+var curBid: Dictionary = {"val": 1, "num": 0}
 var players: Array
 var que: Array
 
 
 func _ready() -> void:
 	add_player()
-
+	add_bot()
 	initialize()
 	print("Starting rolls are", cups)
 
@@ -26,6 +27,15 @@ func add_player():
 		que.append(newPlayer)
 		add_child(newPlayer)
 		playerCount += 1
+		
+func add_bot():
+	if(playerCount < 4):
+		var newBot = BOT_PLAYER.instantiate()
+		newBot.give_id(playerCount)
+		players.append(newBot)
+		que.append(newBot)
+		add_child(newBot)
+		playerCount += 1
 	
 func initialize():
 	#make a 2D array
@@ -37,20 +47,24 @@ func initialize():
 			cup.append(randi_range(1,6))
 	for p in players:
 		p.update_dice(cups[p.playerId])
+		p.update_curBid(curBid)
 	que[0].your_turn()
 
 #randomize players dice
 func shake_dice():
 	for cup in cups:
-		for n in range(0, cup.size()):
+		for n in range(cup.size()):
 			cup[n] = randi_range(1,6)
 	for p in players:
 		p.update_dice(cups[p.playerId])
 		
 func next_round():
+	curBid = {"val": 1, "num": 0}
 	for p in players:
 		p.not_your_turn()
+		p.update_curBid(curBid)
 	shake_dice()
+	que[0].your_turn()
 
 func next_turn():
 	que.append(que[0])
@@ -75,7 +89,7 @@ func check_for_winner():
 	
 func if_lost(playerId): #check ifa  player has lost all their dice if that is the case remove the player from the que
 	if(cups[playerId].size() == 0):
-		for n in range(0,que.size()):
+		for n in range(que.size()):
 			if(que[n].playerId == playerId):
 				que[n].lost()
 				que.pop_at(n)
@@ -129,9 +143,14 @@ func raise(playerId: int, bidNumber:int, bidValue:int):
 		for p in players:
 			p.update_curBid(curBid)
 	next_turn()
-	next_round()
-	
 
+	
+func get_total_dice():
+	var totalDice = 0
+	for cup in cups:
+		for dice in cup:
+			totalDice += 1
+	return totalDice
 	
 
 	
