@@ -10,7 +10,7 @@ var bidValue: int = 1
 var isPlayer = true
 
 func _ready() -> void:
-	pass
+	self.rotation = Vector3(0,(get_parent().playerCount*deg_to_rad(90)),0)
 
 func give_id(newPlayerId: int):
 	playerId = newPlayerId
@@ -22,6 +22,10 @@ func give_id(newPlayerId: int):
 func update_dice(newDice: Array):
 	dice.assign(newDice)
 	#print(dice)
+	
+func animate(anim: String):
+	$AnimationPlayer.play("RESET")
+	$AnimationPlayer.play(anim)
 	
 	
 func check_dice():
@@ -112,4 +116,9 @@ func _on_restart_pressed() -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	dice_roll.visible = true
-	dice_roll.set_dice([1,1,1,2,3])
+	dice_roll.set_dice(dice)
+	if(anim_name == "shake_cup"):
+		animate("check_dice")
+		
+func hide_dice():
+	dice_roll.visible = false

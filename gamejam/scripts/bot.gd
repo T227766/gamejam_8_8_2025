@@ -11,7 +11,9 @@ var isPlayer = false
 
 func _ready() -> void:
 	botBias = randf_range(-0.150,150)
-	print("Im bot player ", playerId ," and my dice are ", dice)
+	#print("Im bot player ", playerId ," and my dice are ", dice)
+	self.rotation = Vector3(0,(get_parent().playerCount*deg_to_rad(90)),0)
+
 
 func give_id(newPlayerId: int):
 	playerId = newPlayerId
@@ -108,8 +110,12 @@ func raise_bid():
 		print("bot player", playerId, "is doing a riski raise to", bidNumber,bidValue)
 		get_parent().raise(playerId, bidNumber, bidValue)
 
-				
-			
+func animate(anim: String):
+	$AnimationPlayer.play(anim)
+
+func hide_dice():
+	pass
+	
 	
 '''
 	if(bidNumber > curBid["num"]):

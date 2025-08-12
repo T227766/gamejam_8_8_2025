@@ -1,9 +1,8 @@
 extends Node
 
 
-const TEST_PLAYER = preload("res://scenes/test_player.tscn")
-const BOT_PLAYER = preload("res://scenes/bot.tscn")
-
+const MAIN_PLAYER = preload("res://scenes/player_character.tscn")
+const BOT_PLAYER = preload("res://scenes/bot_character.tscn")
 
 var playerCount = 0
 var startingDiceCount = 5
@@ -29,10 +28,9 @@ func _ready() -> void:
 
 func add_player():
 	if(playerCount < 4):
-		var newPlayer = TEST_PLAYER.instantiate()
+		var newPlayer = MAIN_PLAYER.instantiate()
 		newPlayer.give_id(playerCount)
 		players.append(newPlayer)
-		que.append(newPlayer)
 		add_child(newPlayer)
 		playerCount += 1
 		announce(str("New Player Joined the game as player ", newPlayer.playerId), false)
@@ -42,13 +40,15 @@ func add_bot():
 		var newBot = BOT_PLAYER.instantiate()
 		newBot.give_id(playerCount)
 		players.append(newBot)
-		que.append(newBot)
 		add_child(newBot)
 		playerCount += 1
 		announce(str("New Bot Joined the game as player ", newBot.playerId), true)
 		
 	
 func initialize():
+	# add players to que
+	for p in players:
+		que.append(p)
 	#make a 2D array
 	for cup in range(playerCount):
 		cups.append(Array())
@@ -59,6 +59,7 @@ func initialize():
 	for p in players:
 		p.update_dice(cups[p.playerId])
 		p.update_curBid(curBid)
+	b_anim("shake_cup")
 	que[0].your_turn()
 
 func reset():
@@ -67,8 +68,15 @@ func reset():
 	announce(str("Restarting Game"), true)
 	initialize()
 
+func b_anim(anim):
+	for p in players:
+		p.animate(anim)
+
 #randomize players dice
 func shake_dice():
+	for p in players:
+		p.hide_dice()
+	b_anim("shake_cup")
 	for cup in cups:
 		for n in range(cup.size()):
 			cup[n] = randi_range(1,6)
@@ -191,3 +199,4 @@ func announce(str: String, wait:bool):
 			p.notify(str, wait)
 	if(wait):
 		await get_tree().create_timer(3.0).timeout
+	return
