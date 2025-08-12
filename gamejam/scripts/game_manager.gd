@@ -10,6 +10,7 @@ var cups: Array
 var curBid: Dictionary = {"val": 1, "num": 0}
 var players: Array
 var que: Array
+var x = 3.5
 
 
 
@@ -119,7 +120,7 @@ func reveal_all_dice():
 func check_for_winner():
 	if(que.size() == 1): # we have a winner
 		announce(str("player ", que[0].playerId, " has won!\nRestart to play again!"), false)
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(x).timeout
 		
 		return true
 	else:
@@ -133,7 +134,7 @@ func if_lost(playerId): #check ifa  player has lost all their dice if that is th
 				que[n].lost()
 				que.pop_at(n)
 				announce(str("PLayer ", playerId, " is removed from this game"), true)
-				await get_tree().create_timer(5.0).timeout
+				await get_tree().create_timer(x).timeout
 				
 		check_for_winner()
 		return true
@@ -145,19 +146,19 @@ func call_bs(playerId: int):
 	var count = count(curBid["val"])
 	announce(str("Player ", playerId, " Calls Lie!"), true)
 	play_sfx(str("res://assets/sfx/bs/",randi_range(0,3),".mp3"))
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(x).timeout
 
 	for cup in cups:
 		for dice in cup:
 			if(dice == curBid["val"]):
 				count += 1
 	announce(str("there are ", count, " dice with value ",curBid["val"]), true)
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(x).timeout
 
 	if(count >= curBid["num"]):
 		#wrong call
 		announce(str("It was NOT a LIE! \nPLayer ", playerId, " looses a dice\n they have ",cups[playerId].size(), " Dice left"), true)
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(x).timeout
 		
 		cups[playerId].pop_back()
 		if(!(await if_lost(playerId))):
@@ -167,7 +168,7 @@ func call_bs(playerId: int):
 		#last guy lied
 		cups[que[-1].playerId].pop_back()
 		announce(str(" It WAS a LIE! \nPLayer ", playerId, " looses a dice\n they have ",cups[playerId].size(), " Dice left"), true)
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(x).timeout
 		
 		if_lost(que[-1].playerId)
 	next_round()
@@ -175,24 +176,24 @@ func call_bs(playerId: int):
 func spot_on(playerId: int):
 	reveal_all_dice()
 	announce(str("Player ", playerId, " Calls Spot On!"), true)
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(x).timeout
 	
 	var count = count(curBid["val"])
 	announce(str("there are ", count, " dice with value ",curBid["val"]), true)
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(x).timeout
 
 	if(count != curBid["num"]):
 		#wrong call lose a dice
 		cups[playerId].pop_back()
 		announce(str("It was NOT spot ON! \nPLayer ", playerId, " looses a dice\n they have ",cups[playerId].size(), " Dice left"), true)
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(x).timeout
 
 		if(!(await if_lost(playerId))):
 			whos_turn(playerId)
 	else:
 		#spot on! every body lose a dice exept playerId
 		announce(str("It was SPOT ON! \nall other PLayer will lose 1 Dice\n ", get_total_dice(), " Total Dice remain on the table"), true)
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(x).timeout
 		
 		for p in que:
 			if(p.playerId != playerId):
@@ -208,7 +209,7 @@ func raise(playerId: int, bidNumber:int, bidValue:int):
 			p.update_curBid(curBid)
 		announce(str("Player ",playerId, " Raised the bid!"), true)
 		play_sfx(str("res://assets/sfx/raise/",randi_range(0,5),".mp3"))
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(x).timeout
 		
 	next_turn()
 
@@ -233,7 +234,7 @@ func announce(str: String, wait:bool):
 		if(p.isPlayer == true):
 			p.notify(str, false)
 	if(wait):
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(x).timeout
 	return
 
 func play_sfx(path: String):

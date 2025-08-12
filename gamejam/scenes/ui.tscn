@@ -199,7 +199,7 @@ sprite_frames = SubResource("SpriteFrames_8dubc")
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
-text = "How to play info  "
+text = "How to play:"
 
 [node name="Restart" type="Button" parent="Margin/Info_Panel"]
 layout_mode = 2
