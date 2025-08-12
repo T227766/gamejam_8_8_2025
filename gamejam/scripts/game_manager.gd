@@ -23,7 +23,7 @@ func _ready() -> void:
 	add_bot()
 
 	initialize()
-	#print("Starting rolls are", cups)
+	print("Starting rolls are", cups)
 
 
 func add_player():
