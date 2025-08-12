@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GameJam"
-run/main_scene="res://DemoLevel.tscn"
+run/main_scene="uid://cmly1est8b5iw"
 config/features=PackedStringArray("4.4", "Mobile")
 
 [rendering]

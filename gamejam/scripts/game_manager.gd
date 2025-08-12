@@ -1,16 +1,19 @@
 extends Node
 
-var playerCount = 0
+var playerCount = 2
 var startingDiceCount = 5
-var cups: Array
+var cups : Array
 var curBid = {"val": 0, "num": 0}
-
+const PLAYER = preload("res://scenes/player.tscn")
+var players : 
 
 func _ready() -> void:
-	add_player()
-	add_player()
-	add_player()
-	add_player()
+	for player in range(0,playerCount):
+		var new_player = PLAYER.instantiate()
+		new_player.player_id = player
+		players.add_child(new_player)
+	
+	print_tree_pretty()	
 	print("we have ", playerCount, " players")
 	
 	initialize()
