@@ -3,14 +3,18 @@ extends Node
 var dice: Array
 var curBid: Dictionary = {"val": 0, "num": 0}
 var myTurn: bool
+var cupIsUp: bool
+var idle: bool = true
 var playerId: int
 var bidNumber: int = 0
 var bidValue: int = 0
 var botBias
 var isPlayer = false
 
+@onready var dice_roll: Node3D = $Visuals/Dice
+
 func _ready() -> void:
-	botBias = randf_range(-0.150,150)
+	botBias = randf_range(-0.30,0.10)
 	#print("Im bot player ", playerId ," and my dice are ", dice)
 	self.rotation = Vector3(0,(get_parent().playerCount*deg_to_rad(90)),0)
 
@@ -22,7 +26,7 @@ func update_dice(newDice: Array):
 	dice.assign(newDice)
 	
 func lost():
-	pass
+	self.visible = false
 	
 func update_curBid(newBid: Dictionary):
 	curBid.assign(newBid)
@@ -111,31 +115,36 @@ func raise_bid():
 		get_parent().raise(playerId, bidNumber, bidValue)
 
 func animate(anim: String):
-	$AnimationPlayer.play(anim)
+	idle = false
+	if(anim == "shake_cup"):
+		$AnimationPlayer.play("hide_dice")
+		await $AnimationPlayer.animation_finished
+		hide_dice()
+		$AnimationPlayer.play(anim)
+	else:
+		$AnimationPlayer.play(anim)
+
 
 func hide_dice():
-	pass
+	dice_roll.visible = false
+	
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if(anim_name == "shake_cup"):
+		dice_roll.set_dice(dice)
+		dice_roll.visible = true
+		animate("check_dice")
+		cupIsUp = true
+	idle = true
 	
 	
-'''
-	if(bidNumber > curBid["num"]):
-		bidNumber -= 1
-	else:
-		#make a error anim?
-		print("cant go lower than curBid")
+func randomly_check_dice():
+	if(cupIsUp and  idle):
+		animate("hide_dice")
+		cupIsUp = false
+	elif(idle):
+		animate("check_dice")
+		cupIsUp = true
+	$Timer.wait_time = randf_range(1.0,10.0)
 
-	if(bidNumber > curBid["val"]):
-		bidValue -= 1
-	else:
-		#make a error anim?
-		print("cant go lower than curBid")
-	update_selected_display()
-
-	if((bidValue > curBid["val"] && bidNumber >= curBid["num"])||(bidValue >= curBid["val"] && bidNumber > curBid["num"])):
-		get_parent().raise(playerId, bidNumber, bidValue)
-
-	get_parent().call_bs(playerId)
-
-	get_parent().spot_on(playerId)
-	
-'''
+func _on_timer_timeout() -> void:
+	randomly_check_dice()

@@ -16,8 +16,7 @@ var que: Array
 func _ready() -> void:
 	
 	add_player()
-	await get_tree().create_timer(3.0).timeout
-
+	
 	add_bot()
 	add_bot()
 	add_bot()
@@ -49,6 +48,7 @@ func initialize():
 	# add players to que
 	for p in players:
 		que.append(p)
+		p.visible = true
 	#make a 2D array
 	for cup in range(playerCount):
 		cups.append(Array())
@@ -65,6 +65,7 @@ func initialize():
 func reset():
 	cups.clear()
 	que.clear()
+	curBid = {"val": 1, "num": 0}
 	announce(str("Restarting Game"), true)
 	initialize()
 
@@ -174,7 +175,7 @@ func raise(playerId: int, bidNumber:int, bidValue:int):
 		curBid["num"] = bidNumber
 		for p in players:
 			p.update_curBid(curBid)
-			announce(str(playerId, "Raised the bid!"), true)
+		announce(str(playerId, "Raised the bid!"), true)
 	next_turn()
 
 	
@@ -194,9 +195,9 @@ func count(val: int):
 	return c
 	
 func announce(str: String, wait:bool):
-	for p in players:
-		if(p.isPlayer == true):
-			p.notify(str, wait)
 	if(wait):
 		await get_tree().create_timer(3.0).timeout
+	for p in players:
+		if(p.isPlayer == true):
+			p.notify(str, false)
 	return

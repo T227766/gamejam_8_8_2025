@@ -23,11 +23,6 @@ func update_dice(newDice: Array):
 	dice.assign(newDice)
 	#print(dice)
 	
-func animate(anim: String):
-	$AnimationPlayer.play("RESET")
-	$AnimationPlayer.play(anim)
-	
-	
 func check_dice():
 	#print(dice)
 	pass
@@ -115,10 +110,21 @@ func _on_restart_pressed() -> void:
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	dice_roll.visible = true
-	dice_roll.set_dice(dice)
 	if(anim_name == "shake_cup"):
+		dice_roll.set_dice(dice)
+		dice_roll.visible = true
 		animate("check_dice")
-		
+
+
+func animate(anim: String):
+	if(anim == "shake_cup"):
+		$AnimationPlayer.play("hide_dice")
+		await $AnimationPlayer.animation_finished
+		hide_dice()
+		$AnimationPlayer.play(anim)
+	else:
+		$AnimationPlayer.play(anim)
+	
+
 func hide_dice():
 	dice_roll.visible = false
