@@ -188,6 +188,6 @@ func count(val: int):
 func announce(str: String, wait:bool):
 	for p in players:
 		if(p.isPlayer == true):
-			p.notify(str)
+			p.notify(str, wait)
 	if(wait):
 		await get_tree().create_timer(3.0).timeout

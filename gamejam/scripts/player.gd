@@ -112,4 +112,4 @@ func _on_restart_pressed() -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	dice_roll.visible = true
-	dice_roll.set_dice([1,4,5,2,6])
+	dice_roll.set_dice([1,1,1,2,3])
