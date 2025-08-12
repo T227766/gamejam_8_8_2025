@@ -284,4 +284,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ww287")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_h3j3n")
+volume_db = -5.0
 autoplay = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

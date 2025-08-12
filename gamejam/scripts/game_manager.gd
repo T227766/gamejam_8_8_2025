@@ -144,6 +144,7 @@ func call_bs(playerId: int):
 	reveal_all_dice()
 	var count = count(curBid["val"])
 	announce(str("Player ", playerId, " Calls Lie!"), true)
+	play_sfx(str("res://assets/sfx/bs/",randi_range(0,3),".mp3"))
 	await get_tree().create_timer(5.0).timeout
 
 	for cup in cups:
@@ -206,6 +207,7 @@ func raise(playerId: int, bidNumber:int, bidValue:int):
 		for p in players:
 			p.update_curBid(curBid)
 		announce(str("Player ",playerId, " Raised the bid!"), true)
+		play_sfx(str("res://assets/sfx/raise/",randi_range(0,5),".mp3"))
 		await get_tree().create_timer(5.0).timeout
 		
 	next_turn()
@@ -233,3 +235,8 @@ func announce(str: String, wait:bool):
 	if(wait):
 		await get_tree().create_timer(3.0).timeout
 	return
+
+func play_sfx(path: String):
+	var sfx = load(path)
+	$AudioStreamPlayer.stream = sfx
+	$AudioStreamPlayer.play()
