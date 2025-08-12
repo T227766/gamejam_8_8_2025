@@ -7,6 +7,7 @@ var myTurn: bool
 var playerId: int
 var bidNumber: int = 0
 var bidValue: int = 1
+var isPlayer = true
 
 func _ready() -> void:
 	pass
@@ -28,7 +29,7 @@ func check_dice():
 	pass
 	
 func lost():
-	notify("You have LOST this game restart to play again.")
+	notify("You have LOST this game restart to play again.", false)
 	
 func update_curBid(newBid: Dictionary):
 	curBid.assign(newBid)
@@ -45,7 +46,7 @@ func not_your_turn():
 	$UI/Margin/Controls_Box/Control_Buttons/Your_Turn.visible = myTurn
 	
 func your_turn():
-	notify("It's your turn")
+	notify("It's your turn", false)
 	myTurn = true
 	$UI/Margin/Controls_Box/Display.visible = myTurn
 	$UI/Margin/Controls_Box/Control_Buttons/Your_Turn.visible = myTurn
@@ -61,14 +62,14 @@ func _on_decrease_number_pressed() -> void:
 		bidNumber -= 1
 	else:
 		#make a error anim?
-		notify(str("Can\'t go lower than Current bid # number"))
+		notify(str("Can\'t go lower than Current bid # number"), false)
 	update_selected_display()
 
 func _on_increase_value_pressed() -> void:
 	if (bidValue < 6):
 		bidValue += 1
 	else:
-		notify(str("Can't go higher than 6 for 🎲 value"))
+		notify(str("Can't go higher than 6 for 🎲 value"), false)
 	update_selected_display()
 
 func _on_decrease_value_pressed() -> void:
@@ -76,7 +77,7 @@ func _on_decrease_value_pressed() -> void:
 		bidValue -= 1
 	else:
 		#make a error anim?
-		notify(str("Can\'t go lower than Current bid 🎲 value"))
+		notify(str("Can\'t go lower than Current bid 🎲 value"), false)
 	update_selected_display()
 
 func update_selected_display():
@@ -86,7 +87,7 @@ func update_selected_display():
 
 func _on_lock_bid_pressed() -> void:
 	if((bidValue > curBid["val"] && bidNumber >= curBid["num"])||(bidValue >= curBid["val"] && bidNumber > curBid["num"])):
-		notify(str("You raised the bid to #", bidNumber,"   🎲", bidValue))
+		notify(str("You raised the bid to #", bidNumber,"   🎲", bidValue), true)
 		get_parent().raise(playerId, bidNumber, bidValue)
 
 
@@ -98,16 +99,17 @@ func _on_spot_on_pressed() -> void:
 	get_parent().spot_on(playerId)
 	
 
-func notify(str: String):
+func notify(str: String, wait:bool):
 	$UI/Margin/Notifications.text = str
-
+	if(wait):
+		await get_tree().create_timer(3.0).timeout
+	
 
 func _on_restart_pressed() -> void:
-	pass # Replace with function body.
+	get_parent().reset()
 
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	dice_roll.visible = true
 	dice_roll.set_dice([1,4,5,2,6])
-

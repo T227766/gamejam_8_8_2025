@@ -7,6 +7,7 @@ var playerId: int
 var bidNumber: int = 0
 var bidValue: int = 0
 var botBias
+var isPlayer = false
 
 func _ready() -> void:
 	botBias = randf_range(-0.150,150)
