@@ -20,6 +20,12 @@ func set_face(number : int, dice : Node3D):
 
 
 func set_dice(roll : Array):
+	for n in range(4,roll.size()-1,-1):
+		var dice = get_child(n)
+		if dice == null:
+			pass
+		else:
+			dice.visible = false
 	for i in range(0,roll.size()):
 		var dice = get_child(i)
 		if dice == null:
